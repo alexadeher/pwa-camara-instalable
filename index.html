@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Inspección Visual PWA</title>
+    <meta name="description" content="Captura de evidencia fotográfica con acceso consciente a cámara.">
+
+    <!-- Instalabilidad -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- iOS / WebKit -->
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="InspecciónPWA">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="./styles.css">
+    </head>
+    <body>
+    <main class="app">
+        <header class="encabezado">
+        <h1>Inspección Visual</h1>
+        <p class="subtitulo">Vista previa de cámara, solo en tu dispositivo.</p>
+        </header>
+
+        <!-- Instalación: Android/Chrome (beforeinstallprompt) -->
+        <button id="btn-instalar" class="btn btn-instalar" type="button" hidden>Instalar app</button>
+
+        <!-- Instalación: iPhone/iPad (manual) -->
+        <aside id="instrucciones-ios" class="tarjeta tarjeta-ios" hidden>
+        <h2>Instalar en iPhone</h2>
+        <p>Para instalar en iPhone, pulsa el icono <strong>Compartir</strong> y selecciona <strong>Agregar a inicio</strong>.</p>
+        </aside>
+
+        <!-- Visor -->
+        <section class="visor" aria-label="Vista previa de la cámara">
+        <video id="visor-camara" autoplay playsinline muted></video>
+        <div class="visor-vacio" id="visor-vacio">
+            <p>La cámara está apagada</p>
+        </div>
+        <span class="esquina esq-sup-izq" aria-hidden="true"></span>
+        <span class="esquina esq-sup-der" aria-hidden="true"></span>
+        <span class="esquina esq-inf-izq" aria-hidden="true"></span>
+        <span class="esquina esq-inf-der" aria-hidden="true"></span>
+        </section>
+
+        <p id="mensaje-estado" class="estado" role="status" aria-live="polite">Cámara apagada.</p>
+
+        <!-- Controles -->
+        <section class="controles" aria-label="Controles de cámara">
+        <button id="btn-preparar-camara" class="btn btn-principal" type="button">Solicitar acceso a cámara</button>
+        <div class="fila">
+            <button id="btn-alternar-camara" class="btn btn-secundario" type="button" disabled>Cambiar cámara</button>
+            <button id="btn-apagar-camara" class="btn btn-secundario" type="button" disabled>Apagar cámara</button>
+        </div>
+        </section>
+
+        <!-- Pre-permiso (UX ética): se muestra ANTES del diálogo nativo -->
+        <section id="aviso-permiso" class="aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-titulo" hidden>
+        <div class="aviso-contenido">
+            <h2 id="aviso-titulo">Antes de encender la cámara</h2>
+            <p>Esta aplicación requiere acceso a tu cámara únicamente para mostrar una vista previa local en pantalla. Ninguna imagen se envía a servidores externos.</p>
+            <p class="aviso-detalle">Se encenderá la cámara <strong id="aviso-lente">trasera</strong>. Después, tu navegador te pedirá confirmar el permiso.</p>
+            <div class="fila">
+            <button id="btn-cancelar-permiso" class="btn btn-secundario" type="button">Ahora no</button>
+            <button id="btn-confirmar-permiso" class="btn btn-principal" type="button">Aceptar y encender cámara</button>
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

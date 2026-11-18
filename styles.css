@@ -1,0 +1,124 @@
+:root {
+    --fondo: #0f172a;
+    --superficie: #1e293b;
+    --borde: #334155;
+    --texto: #f1f5f9;
+    --texto-suave: #94a3b8;
+    --acento: #fbbf24;
+    --acento-texto: #1a1204;
+    --radio: 14px;
+    --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { margin: 0; height: 100%; }
+
+body {
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: var(--fuente);
+    line-height: 1.5;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.encabezado h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+.subtitulo { margin: 4px 0 0; color: var(--texto-suave); font-size: 0.95rem; }
+
+/* Visor con marcas de encuadre */
+.visor {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: #020617;
+    border-radius: var(--radio);
+    overflow: hidden;
+}
+.visor video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.visor-vacio {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    color: var(--texto-suave);
+}
+.visor.activo .visor-vacio { display: none; }
+
+.esquina {
+    position: absolute; width: 28px; height: 28px;
+    border: 3px solid var(--acento);
+    pointer-events: none;
+}
+.esq-sup-izq { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
+.esq-sup-der { top: 12px; right: 12px; border-left: 0; border-bottom: 0; border-top-right-radius: 8px; }
+.esq-inf-izq { bottom: 12px; left: 12px; border-right: 0; border-top: 0; border-bottom-left-radius: 8px; }
+.esq-inf-der { bottom: 12px; right: 12px; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
+
+.estado {
+    margin: 0;
+    padding: 10px 12px;
+    border-left: 3px solid var(--borde);
+    background: var(--superficie);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.estado.ok { border-left-color: #4ade80; }
+.estado.error { border-left-color: #f87171; }
+
+.controles { display: flex; flex-direction: column; gap: 10px; }
+.fila { display: flex; gap: 10px; }
+.fila .btn { flex: 1; }
+
+.btn {
+    font: inherit; font-weight: 600;
+    min-height: 48px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+.btn:focus-visible { outline: 3px solid var(--texto); outline-offset: 2px; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-principal { background: var(--acento); color: var(--acento-texto); }
+.btn-secundario { background: transparent; color: var(--texto); border-color: var(--borde); }
+.btn-instalar { background: var(--texto); color: var(--fondo); }
+
+.tarjeta {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 14px 16px;
+}
+.tarjeta h2 { margin: 0 0 4px; font-size: 1rem; }
+.tarjeta p { margin: 0; color: var(--texto-suave); }
+
+/* Aviso de pre-permiso */
+.aviso {
+    position: fixed; inset: 0;
+    background: rgba(2, 6, 23, 0.8);
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 16px;
+    z-index: 10;
+}
+.aviso-contenido {
+    width: 100%; max-width: 480px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 20px 18px;
+    display: flex; flex-direction: column; gap: 12px;
+}
+.aviso-contenido h2 { margin: 0; font-size: 1.15rem; }
+.aviso-contenido p { margin: 0; }
+.aviso-detalle { color: var(--texto-suave); font-size: 0.95rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
